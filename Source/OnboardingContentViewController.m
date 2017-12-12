@@ -172,6 +172,13 @@ NSString * const kOnboardActionButtonAccessibilityIdentifier = @"OnboardActionBu
     [self.view addSubview:self.iconImageView];
     [self.view addSubview:self.titleLabel];
     [self.view addSubview:self.bodyLabel];
+    
+    CGRect screenSize = UIScreen.mainScreen.bounds;
+    UIView *bgContainer = [[UIView alloc] initWithFrame:CGRectMake(0, screenSize.size.height - 50,screenSize.size.width, 50)];
+    bgContainer.backgroundColor = UIColor.blackColor;
+    bgContainer.alpha = 0.4;
+    [self.view addSubview:bgContainer];
+    
     [self.view addSubview:self.actionButton];
 }
 
@@ -265,12 +272,7 @@ NSString * const kOnboardActionButtonAccessibilityIdentifier = @"OnboardActionBu
     if (self.videoURL) {
         self.moviePlayerController.view.frame = self.view.frame;
     }
-    
-    CGFloat safedUnderPageControlPadding = self.underPageControlPadding;
-    if (@available(iOS 11.0, *)) {
-        safedUnderPageControlPadding += [self.view safeAreaInsets].bottom;
-    }
-    
+
     CGFloat viewWidth = CGRectGetWidth(self.view.frame);
     CGFloat contentWidth = viewWidth * kContentWidthMultiplier;
     CGFloat xPadding = (viewWidth - contentWidth) / 2.0;
@@ -289,7 +291,7 @@ NSString * const kOnboardActionButtonAccessibilityIdentifier = @"OnboardActionBu
     [self.bodyLabel sizeToFit];
     self.bodyLabel.frame = CGRectMake(xPadding, bodyYOrigin, contentWidth, CGRectGetHeight(self.bodyLabel.frame));
 
-    // self.actionButton.frame = CGRectMake((CGRectGetMaxX(self.view.frame) / 2) - (contentWidth / 2), CGRectGetMaxY(self.view.frame) - safedUnderPageControlPadding - kMainPageControlHeight - kActionButtonHeight - self.bottomPadding, contentWidth, kActionButtonHeight);
+//    self.actionButton.frame = CGRectMake((CGRectGetMaxX(self.view.frame) / 2) - (contentWidth / 2), CGRectGetMaxY(self.view.frame) - self.underPageControlPadding - kMainPageControlHeight - kActionButtonHeight - self.bottomPadding, contentWidth, kActionButtonHeight);
 }
 
 
